@@ -17,14 +17,23 @@
                             <button type="submit" class="btn btn-danger">Elimina</button>
                         </form>
                     </div>
-                    <div class="mb-3">
-                        @if ($post->published)
-                            <h5>Stato: <span class="badge badge-pill badge-success">Pubblicato</span></h5>
-                        @else
-                            <h5>Stato: <span class="badge badge-pill badge-info text-white">Bozza</span></h5>
-                        @endif
+                    <div class="tags d-flex">
+                        <div class="my-3 mr-3">
+                            @if ($post->published)
+                                <h5>Stato: <span class="badge badge-pill badge-success">Pubblicato</span></h5>
+                            @else
+                                <h5>Stato: <span class="badge badge-pill badge-info text-white">Bozza</span></h5>
+                            @endif
+                        </div>
+                        <div class="my-3">
+                            @if ($post->category != null)
+                            <h5>Categoria: <span class="badge badge-pill badge-primary">{{$post->category->name}}</span></h5>
+                            @endif
+                        </div>
                     </div>
-                    {{$post->content}}
+                    <div>
+                        {{$post->content}}
+                    </div>
                 </div>
             </div>
         </div>

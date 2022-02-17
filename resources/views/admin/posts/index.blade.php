@@ -17,6 +17,7 @@
                                 <th scope="col">Titolo</th>
                                 <th scope="col">Slug</th>
                                 <th scope="col">Stato</th>
+                                <th scope="col">Categoria</th>
                                 <th scope="col">Azioni</th>
                             </tr>
                         </thead>
@@ -32,6 +33,13 @@
                                                 <h5><span class="badge badge-pill badge-success">Pubblicato</span></h5>
                                             @else
                                                 <h5><span class="badge badge-pill badge-info text-white">Bozza</span></h5>
+                                            @endif
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="mb-3">
+                                            @if ($post->category != null)
+                                                <h5><span class="badge badge-pill badge-primary">{{$post->category->name}}</span></h5>
                                             @endif
                                         </div>
                                     </td>
