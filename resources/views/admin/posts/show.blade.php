@@ -32,6 +32,9 @@
                         </div>
                     </div>
                     <div>
+                        <div>
+                            <img src="{{asset("storage/$post->image")}}" alt="{{$post->title}}.' image'">
+                        </div>
                         {{$post->content}}
                     </div>
                 </div>

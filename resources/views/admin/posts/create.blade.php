@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Nuovo Post</div>
                 <div class="card-body">
-                    <form action="{{route("posts.store")}}" method="POST">
+                    <form action="{{route("posts.store")}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="title">Titolo:</label>
@@ -42,7 +42,14 @@
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
-                        <a href="{{route("posts.store")}}"><button type="submit" class="btn btn-primary">Crea post</button></a>
+                        <div class="custom-file form-group mb-3">
+                            <label for="image">Aggiungi immagine</label>
+                            <input type="file" class="@error('published') is-invalid @enderror" id="image" name="image">
+                            @error("image")
+                                <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crea post</button>
                     </form>
                 </div>
             </div>

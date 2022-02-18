@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -15,6 +16,7 @@ class PostController extends Controller
         "content" => "required",
         "published" => "sometimes|accepted",
         "category_id" => "nullable|exists:categories,id",
+        "image" => "nullable|image|max:2048|mimes:jpeg,bmp,png,jpg",
     ];
     /**
      * Display a listing of the resource.
@@ -56,6 +58,11 @@ class PostController extends Controller
         $newPost->content = $data['content'];
         $newPost->published = isset($data['published']) ? 1 : 0;
         $newPost->category_id = $data['category_id'];
+
+        if(isset($data['image'])){
+            $path_image = Storage::put("uploads", $data['image']);
+            $newPost->image = $path_image;
+        }
 
         $slug = Str::of($newPost->title)->slug("-");
         $counter = 1;
@@ -125,6 +132,13 @@ class PostController extends Controller
         $post->published = isset($data['published']) ? 1 : 0;
         $post->category_id = $data['category_id'];
 
+        if (isset($data['image'])) {
+
+            Storage::delete($post->image);
+
+            $path_image = Storage::put("uploads", $data['image']);
+            $post->image = $path_image;
+        }
         
 
         $post->save();

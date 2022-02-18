@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Modifica Post: {{$post->title}}</div>
                 <div class="card-body">
-                    <form action="{{route("posts.update", $post->id)}}" method="POST">
+                    <form action="{{route("posts.update", $post->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method("PUT")
                         <div class="form-group">
@@ -43,6 +43,16 @@
                             <input type="checkbox" class="form-check-input @error('published') is-invalid @enderror" id="published" name="published" {{$checked ? "checked" : ""}}>
                             <label class="form-check-label" for="published">Pubblica</label>
                             @error("published")
+                                <div class="alert alert-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+                        <div class="custom-file form-group mb-4">
+                            @if ($post->image)
+                                <img height="50px" src="{{asset("storage/$post->image")}}" alt="{{$post->title}}.' image'">
+                            @endif
+                            <label for="image">Aggiungi immagine</label>
+                            <input type="file" class="@error('published') is-invalid @enderror" id="image" name="image">
+                            @error("image")
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
